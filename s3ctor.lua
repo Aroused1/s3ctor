@@ -2,7 +2,7 @@
 PLUGIN.Title = "S3ctor"
 PLUGIN.Description = "A plugin for Admin created Warps, designed for easy enabling/disabling of jumps"
 PLUGIN.Version = "0.2"
-PLUGIN.Author = "Kyros <grimd.666@gmail.com>"
+PLUGIN.Author = "Kyros <grimd.666@gmail.com>", "Aroused1 <LustForRust@hotmail.com>"
 
 --Init hook. Setup commands and grab our datafile.
 function PLUGIN:Init()
@@ -10,6 +10,8 @@ function PLUGIN:Init()
   self:AddChatCommand("setjump", self.setJump)
   self:AddChatCommand("jump", self.jump)
   self:AddChatCommand("togglejump", self.toggleJump)
+  --Command Alias
+  self:AddChatCommand("goto", self.jump)
   --grab our raw file
   self.conf = util.GetDatafile("s3ctor")
   --give ourselves a safe default of an empty table
@@ -125,4 +127,10 @@ function PLUGIN:toggleJump(netuser, cmd, args)
   else
     rust.Notice(netuser, "This command is restricted to Admins")
   end
+end
+
+--Provides help commands to the Advanced Help plugin by Friendly Ape
+function PLUGIN:SendHelpText( netuser )
+	rust.SendChatToUser( netuser, "/gotohelp   (Shows all teleport locations)");
+	rust.SendChatToUser( netuser, "/goto LocationName   (Teleports you to a location)");
 end
